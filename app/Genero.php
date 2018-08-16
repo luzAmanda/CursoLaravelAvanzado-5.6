@@ -10,6 +10,8 @@ class Genero extends Model
     protected $table="generos";
     public $timestamps=true;
 
+    protected $hidden = ['pivot'];
+
     public function peliculas(){
         return $this->belongsToMany('\App\Pelicula', 'peliculas_generos','idGenero', 'idPelicula');
     }
