@@ -20,6 +20,7 @@
                         <th scope="col">Año</th>
                         <th scope="col">Duración</th>
                         <th scope="col">Géneros</th>
+                        <th scope="col">Imagen</th>
                         <th scope="col"></th>
                         </tr>
                     </thead>
@@ -31,6 +32,13 @@
                                 <td>{{$pel->duracion}}</td>
                                 <td>
                                     <span class="badge badge-pill badge-{{$pel->generos_count == 0 ? 'danger' : 'info' }}">{{$pel->generos_count}}</span>
+                                </td>
+                                <td>
+                                    @if($pel->imagen == null)
+                                        -
+                                    @else
+                                        <img src="{{\Storage::url($pel->imagen)}}" style="max-width:75px;">
+                                    @endif
                                 </td>
                                 <td>
                                     <a title="Ver" href="{{route('peliculas.show',$pel->idPelicula)}}" class="btn btn-info btn-xs"><i class="fa fa-folder-open" aria-hidden="true"></i></a>

@@ -40,8 +40,13 @@ class PeliculaController extends Controller
     public function store(PeliculaRequest $request)
     {
         try{
-            $pelicula=Pelicula::create($request->except('idGenero'));
+            $pelicula=Pelicula::create($request->except(['idGenero','imagen']));
+            if ($request->hasFile('imagen')) {
+                $pelicula->imagen = $request->file('imagen')->store('public/peliculas');
+                $pelicula->save();
+            }
             $pelicula->generos()->sync($request->idGenero);
+            $pelicula->generos()->sync($request->idActor);
             return redirect('peliculas')->with('success','Película registrada');
         }catch(Exception $e){
             return back()->withErrors(['exception'=>$e->getMessage()])->withInput();

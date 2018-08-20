@@ -12,7 +12,7 @@ class FindMovies extends Command
      *
      * @var string
      */
-    protected $signature = 'find:movie {id : ID de la película}';
+    protected $signature = 'find:movie {--y | year= : Año de la película} ';
 
     /**
      * The console command description.
@@ -38,8 +38,12 @@ class FindMovies extends Command
      */
     public function handle()
     {
-        $id=$this->argument('id');
-        $pelicula=Pelicula::findOrFail($id);
-        echo "Pelicula encontrada, ".$pelicula->titulo;
+        $year=$this->option('year');
+        $header=["Título","Año","Duración"];
+        if($year == null) {
+            $year = date('Y');
+        }
+        $peliculas=Pelicula::select('titulo','anio','duracion')->where('anio',$year)->get();
+        $this->table($header,$peliculas);
     }
 }
