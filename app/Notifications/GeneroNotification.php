@@ -11,17 +11,25 @@ class GeneroNotification extends Notification
 {
     use Queueable;
 
-    public $nombre, $fecha;
+    public $nombre, $fecha, $asunto, $texto;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(Genero $genero)
+    public function __construct(Genero $genero, $fechaAct = false)
     {
         $this->nombre = $genero->nombre;
-        $this->fecha = $genero->deleted_at;
+        if ($fechaAct == false) {
+            $this->asunto = 'Género enviado a papelera';
+            $this->texto = "envió a papelera";
+            $this->fecha = $genero->deleted_at;
+        } else {
+            $this->asunto = 'Género restaurado';
+            $this->texto = "restauró";
+            $this->fecha = $genero->updated_at;
+        }
     }
 
     /**
@@ -44,8 +52,8 @@ class GeneroNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)->greeting('Saludos!')
-            ->subject('Género enviado a papelera')
-            ->line("Se envió a papelera el género " . $this->nombre . "a las " . $this->fecha);
+            ->subject($this->asunto)
+            ->line("Se " . $this->texto . " el género " . $this->nombre . "a las " . $this->fecha);
     }
 
     /**

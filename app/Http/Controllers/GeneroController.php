@@ -81,7 +81,7 @@ class GeneroController extends Controller
     public function restore($id)
     {
         try {
-            Genero::withTrashed()->where('idGenero', $id)->restore();
+            Genero::withTrashed()->where('idGenero', $id)->restore(); // devuelve el # de generos restaruados
             return redirect('generos')->with('success', 'Género restaurado');
         } catch (Exception $e) {
             return back()->withErrors(['exception' => $e->getMessage()]);
