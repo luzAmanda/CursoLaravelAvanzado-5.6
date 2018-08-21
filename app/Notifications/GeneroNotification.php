@@ -2,23 +2,26 @@
 
 namespace App\Notifications;
 
+use App\Genero;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
 
 class GeneroNotification extends Notification
 {
     use Queueable;
+
+    public $nombre, $fecha;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Genero $genero)
     {
-        //
+        $this->nombre = $genero->nombre;
+        $this->fecha = $genero->deleted_at;
     }
 
     /**
@@ -41,7 +44,8 @@ class GeneroNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)->greeting('Saludos!')
-                ->line('Esto es un mensaje de prueba');
+            ->subject('Género enviado a papelera')
+            ->line("Se envió a papelera el género " . $this->nombre . "a las " . $this->fecha);
     }
 
     /**

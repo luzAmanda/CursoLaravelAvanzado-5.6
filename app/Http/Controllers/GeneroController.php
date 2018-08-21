@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Genero;
-use Illuminate\Http\Request;
-use Illuminate\Database\QueryException;
 use App\Notifications\GeneroNotification;
-use Notification;
 use Auth;
+use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 
 class GeneroController extends Controller
 {
@@ -18,12 +17,12 @@ class GeneroController extends Controller
      */
     public function index(Request $request)
     {
-        $query=Genero::query();
-        $query=$query->withCount('peliculas')->orderBy('nombre');  
-        if($request->display == "all"){
-            $query =$query->withTrashed();
-        }else if($request->display == "trash"){
-            $query =$query->onlyTrashed();
+        $query = Genero::query();
+        $query = $query->withCount('peliculas')->orderBy('nombre');
+        if ($request->display == "all") {
+            $query->withTrashed();
+        } else if ($request->display == "trash") {
+            $query->onlyTrashed();
         }
         $generos = $query->paginate(10);
         return view('panel.generos.index', compact('generos'));
@@ -71,35 +70,37 @@ class GeneroController extends Controller
      */
     public function destroy($id)
     {
-        try{
-            Genero::withTrashed()->where('idGenero',$id)->forceDelete();
-            return redirect('generos')->with('success','Género eliminado permanentemente');
-        }catch(Exception | QueryException $e){
-            return back()->withErrors(['exception'=>$e->getMessage()]);
+        try {
+            Genero::withTrashed()->where('idGenero', $id)->forceDelete();
+            return redirect('generos')->with('success', 'Género eliminado permanentemente');
+        } catch (Exception | QueryException $e) {
+            return back()->withErrors(['exception' => $e->getMessage()]);
         }
     }
 
     public function restore($id)
     {
-        try{
-            Genero::withTrashed()->where('idGenero',$id)->restore();
-            return redirect('generos')->with('success','Género restaurado');
-        }catch(Exception $e){
-            return back()->withErrors(['exception'=>$e->getMessage()]);
+        try {
+            Genero::withTrashed()->where('idGenero', $id)->restore();
+            return redirect('generos')->with('success', 'Género restaurado');
+        } catch (Exception $e) {
+            return back()->withErrors(['exception' => $e->getMessage()]);
         }
     }
 
     public function trash($id)
     {
-        try{
+        try {
             Genero::destroy($id);
-            $user=Auth::user();
-            $user->notify(new GeneroNotification());
+            $gen = Genero::withTrashed()->where('idGenero', $id)->first();
+            $user = Auth::user();
+            $user->notify(new GeneroNotification($gen));
+            //Mail::to($user)->send(new GeneroTrash());
             // Notification::route('mail', $email)
             // ->notify(new GeneroNotification());
-            return redirect('generos')->with('success','Género enviado a papelera');
-        }catch(Exception $e){
-            return back()->withErrors(['exception'=>$e->getMessage()]);
+            return redirect('generos')->with('success', 'Género enviado a papelera');
+        } catch (Exception $e) {
+            return back()->withErrors(['exception' => $e->getMessage()]);
         }
     }
 }
