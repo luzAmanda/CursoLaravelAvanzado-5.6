@@ -27,34 +27,48 @@ Laravel has the most extensive and thorough [documentation](https://laravel.com/
 
 If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
 
-## Laravel Sponsors
+## Script
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
+A continuación, se presenta el script de las diferentes tablas con el motor de base de datos MySQL:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
+```sql
+CREATE TABLE actores (
+  idActor int(11) PRIMARY KEY AUTO_INCREMENT,
+  nombres varchar(30) NOT NULL,
+  apellidos varchar(30) NOT NULL,
+  created_at datetime NOT NULL,
+  updated_at datetime NOT NULL
+);
 
-## Contributing
+CREATE TABLE generos (
+  idGenero int(11) PRIMARY KEY AUTO_INCREMENT,
+  nombre varchar(30) NOT NULL unique,
+  created_at datetime NOT NULL,
+  updated_at datetime NOT NULL,
+  deleted_at datetime
+);
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+CREATE TABLE peliculas (
+  idPelicula int(11) PRIMARY KEY AUTO_INCREMENT,
+  titulo varchar(30) NOT NULL,
+  duracion int(11) NOT NULL,
+  anio int(11) NOT NULL,
+  imagen varchar(250),
+  created_at datetime NOT NULL,
+  updated_at datetime NOT NULL
+);
 
-## Security Vulnerabilities
+CREATE TABLE peliculas_actores (
+  idPelAct int(11) PRIMARY KEY AUTO_INCREMENT,
+  idPelicula int(11) NOT NULL REFERENCES peliculas (idPelicula),
+  idActor int(11) NOT NULL REFERENCES actores (idActor),
+  unique(idPelicula,idActor)
+);
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+CREATE TABLE peliculas_generos (
+  idPelGen int(11) PRIMARY KEY AUTO_INCREMENT,
+  idPelicula int(11) NOT NULL REFERENCES peliculas (idPelicula),
+  idGenero int(11) NOT NULL REFERENCES generos (idGenero),
+  unique(idPelicula,idGenero)
+)
+```
