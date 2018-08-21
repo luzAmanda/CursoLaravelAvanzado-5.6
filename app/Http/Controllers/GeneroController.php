@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Genero;
-use App\Notifications\GeneroNotification;
-use Auth;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
@@ -81,7 +79,7 @@ class GeneroController extends Controller
     public function restore($id)
     {
         try {
-            Genero::withTrashed()->where('idGenero', $id)->restore(); // devuelve el # de generos restaruados
+            Genero::withTrashed()->where('idGenero', $id)->restore(); // devuelve el # de generos restaurados
             return redirect('generos')->with('success', 'Género restaurado');
         } catch (Exception $e) {
             return back()->withErrors(['exception' => $e->getMessage()]);
@@ -92,9 +90,6 @@ class GeneroController extends Controller
     {
         try {
             Genero::destroy($id);
-            $gen = Genero::withTrashed()->where('idGenero', $id)->first();
-            $user = Auth::user();
-            $user->notify(new GeneroNotification($gen));
             //Mail::to($user)->send(new GeneroTrash());
             // Notification::route('mail', $email)
             // ->notify(new GeneroNotification());
