@@ -3,8 +3,9 @@
 namespace App;
 
 use DB;
-use Storage;
 use Illuminate\Database\Eloquent\Model;
+use Input;
+use Storage;
 
 class Pelicula extends Model
 {
@@ -12,7 +13,7 @@ class Pelicula extends Model
     protected $table = "peliculas";
     public $timestamps = true;
 
-    public $fillable = ['titulo','duracion','anio','imagen'];
+    public $fillable = ['titulo', 'duracion', 'anio', 'imagen'];
 
     protected $hidden = ['pivot'];
 
@@ -55,9 +56,17 @@ class Pelicula extends Model
 
         static::deleting(function ($pelicula) { // before delete() method call this
             $pelicula->generos()->detach();
-            if($pelicula->imagen != null){
+            if ($pelicula->imagen != null) {
                 Storage::delete($pelicula->imagen);
             }
         });
+
+        static::creating(function ($pelicula) {
+            if (Input::hasFile('imagen') && $pelicula->imagen != null) {
+                $image = Input::file('imagen');
+                $pelicula->imagen = $image->store('public/peliculas');
+            }
+        });
+
     }
 }

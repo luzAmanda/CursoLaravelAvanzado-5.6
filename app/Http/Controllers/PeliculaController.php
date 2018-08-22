@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Pelicula;
 use App\Genero;
-use Illuminate\Http\Request;
 use App\Http\Requests\PeliculaRequest;
+use App\Pelicula;
+use Illuminate\Http\Request;
 
 class PeliculaController extends Controller
 {
@@ -27,8 +27,8 @@ class PeliculaController extends Controller
      */
     public function create()
     {
-        $generos=Genero::orderBy('nombre')->get(['idGenero','nombre']);
-        return view("panel.peliculas.create",compact('generos'));
+        $generos = Genero::orderBy('nombre')->get(['idGenero', 'nombre']);
+        return view("panel.peliculas.create", compact('generos'));
     }
 
     /**
@@ -39,16 +39,12 @@ class PeliculaController extends Controller
      */
     public function store(PeliculaRequest $request)
     {
-        try{
-            $pelicula=Pelicula::create($request->except(['idGenero','imagen']));
-            if ($request->hasFile('imagen') && $request->imagen!=null) {
-                $pelicula->imagen = $request->file('imagen')->store('public/peliculas');
-                $pelicula->save();
-            }
+        try {
+            $pelicula = Pelicula::create($request->except(['idGenero']));
             $pelicula->generos()->sync($request->idGenero);
-            return redirect('peliculas')->with('success','Película registrada');
-        }catch(Exception $e){
-            return back()->withErrors(['exception'=>$e->getMessage()])->withInput();
+            return redirect('peliculas')->with('success', 'Película registrada');
+        } catch (Exception $e) {
+            return back()->withErrors(['exception' => $e->getMessage()])->withInput();
         }
     }
 
@@ -60,10 +56,10 @@ class PeliculaController extends Controller
      */
     public function show($id)
     {
-        $pelicula=Pelicula::with(['generos' => function ($query) {
-                $query->select('nombre');
-            }])->findOrFail($id);
-        return view("panel.peliculas.show",compact('pelicula'));
+        $pelicula = Pelicula::with(['generos' => function ($query) {
+            $query->select('nombre');
+        }])->findOrFail($id);
+        return view("panel.peliculas.show", compact('pelicula'));
     }
 
     /**
@@ -74,12 +70,12 @@ class PeliculaController extends Controller
      */
     public function edit($id)
     {
-        $pelicula=Pelicula::with(['generos' => function ($query) {
+        $pelicula = Pelicula::with(['generos' => function ($query) {
             $query->select('generos.idGenero');
         }])->findOrFail($id);
-        $generos=Genero::orderBy('nombre')->get(['idGenero','nombre']);
-        $gens=collect($pelicula->generos)->sortBy('idGenero')->toArray();
-        return view("panel.peliculas.edit",compact('pelicula','generos','gens'));
+        $generos = Genero::orderBy('nombre')->get(['idGenero', 'nombre']);
+        $gens = collect($pelicula->generos)->sortBy('idGenero')->toArray();
+        return view("panel.peliculas.edit", compact('pelicula', 'generos', 'gens'));
     }
 
     /**
@@ -91,12 +87,12 @@ class PeliculaController extends Controller
      */
     public function update(PeliculaRequest $request, $id)
     {
-        try{
-            $pelicula=Pelicula::updateOrCreate(['idPelicula'=>$id],$request->except('idGenero'));
+        try {
+            $pelicula = Pelicula::updateOrCreate(['idPelicula' => $id], $request->except('idGenero'));
             $pelicula->generos()->sync($request->idGenero);
-            return redirect('peliculas')->with('success','Pelicula actualizada');
-        }catch(Exception $e){
-            return back()->withErrors(['exception'=>$e->getMessage()])->withInput();
+            return redirect('peliculas')->with('success', 'Pelicula actualizada');
+        } catch (Exception $e) {
+            return back()->withErrors(['exception' => $e->getMessage()])->withInput();
         }
     }
 
@@ -108,11 +104,11 @@ class PeliculaController extends Controller
      */
     public function destroy($id)
     {
-        try{
+        try {
             Pelicula::destroy($id);
-            return redirect('peliculas')->with('success','Película eliminada');
-        }catch(Exception $e){
-            return back()->withErrors(['exception'=>$e->getMessage()]);
+            return redirect('peliculas')->with('success', 'Película eliminada');
+        } catch (Exception $e) {
+            return back()->withErrors(['exception' => $e->getMessage()]);
         }
     }
 }
