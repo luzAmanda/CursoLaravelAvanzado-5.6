@@ -6,6 +6,7 @@ use App\Notifications\GeneroNotification;
 use Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use OneSignal;
 
 class Genero extends Model
 {
@@ -30,10 +31,13 @@ class Genero extends Model
         parent::boot();
 
         static::deleted(function ($genero) {
+            $route = route("generos.show", $genero->idGenero);
+            OneSignal::sendNotificationToAll("Se envió a papelera el género " . $genero->nombre . " a las " . $genero->deleted_at, $route);
             $user = Auth::user();
             $user->notify(new GeneroNotification($genero));
         });
-        static::restored(function ($genero) {
+        static::restoring(function ($genero) {
+            info("restoring");
             $user = Auth::user();
             $user->notify(new GeneroNotification($genero, true));
         });

@@ -23,6 +23,16 @@
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
+
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script>
+        var OneSignal = window.OneSignal || [];
+        OneSignal.push(function() {
+            OneSignal.init({
+            appId: "ea6daa6c-0325-4bdb-ba01-e31adfcb60f4",
+            });
+        });
+        </script>
 </head>
 <body>
     <div id="app">
@@ -41,11 +51,11 @@
                         @auth 
                         <li class="nav-item">
                             <a class="nav-link {{strpos(Request::path(), 'peliculas') !== false ? 'active' : ''}}"
-                             href="{{ url('peliculas') }}">Películas</a>
+                             href="{{ url('peliculas') }}">@lang("messages.movies")</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{strpos(Request::path(), 'generos') !== false ?'active':''}}"
-                             href="{{ url('generos') }}">Géneros</a>
+                             href="{{ url('generos') }}">@lang("messages.genders")</a>
                         </li>
                         @endauth
                     </ul>

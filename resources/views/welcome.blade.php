@@ -7,6 +7,16 @@
 
         <title>Laravel</title>
 
+        <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+        <script>
+        var OneSignal = window.OneSignal || [];
+        OneSignal.push(function() {
+            OneSignal.init({
+            appId: "ea6daa6c-0325-4bdb-ba01-e31adfcb60f4",
+            });
+        });
+        </script>
+
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 

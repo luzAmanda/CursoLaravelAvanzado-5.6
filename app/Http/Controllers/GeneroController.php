@@ -45,7 +45,8 @@ class GeneroController extends Controller
      */
     public function show($id)
     {
-        //
+        return Genero::withTrashed()->where('idGenero', $id)
+            ->firstOrFail()->toJson();
     }
 
     /**
