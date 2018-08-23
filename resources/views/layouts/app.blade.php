@@ -52,6 +52,10 @@
                     <ul class="nav nav-tabs mr-auto">
                         @auth 
                         <li class="nav-item">
+                            <a class="nav-link {{strpos(Request::path(), 'home') !== false ? 'active' : ''}}"
+                             href="{{ url('home') }}">@lang("messages.home")</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link {{strpos(Request::path(), 'peliculas') !== false ? 'active' : ''}}"
                              href="{{ url('peliculas') }}">@lang("messages.movies")</a>
                         </li>
@@ -82,7 +86,7 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        @lang("messages.logout")
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

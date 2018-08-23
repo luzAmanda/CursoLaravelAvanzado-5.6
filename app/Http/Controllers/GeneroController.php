@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Genero;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Lang;
 
 class GeneroController extends Controller
 {
@@ -94,7 +95,7 @@ class GeneroController extends Controller
             //Mail::to($user)->send(new GeneroTrash());
             // Notification::route('mail', $email)
             // ->notify(new GeneroNotification());
-            return redirect('generos')->with('success', 'Género enviado a papelera');
+            return redirect('generos')->with('success', Lang::get("messages.gender_trash"));
         } catch (Exception $e) {
             return back()->withErrors(['exception' => $e->getMessage()]);
         }

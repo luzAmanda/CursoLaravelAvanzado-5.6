@@ -13,9 +13,9 @@
                     @include('panel.generos.delete')
                     @include('panel.generos.trash')
                     @include('panel.generos.restore')
-                <a class="btn btn-link {{strpos(Request::fullUrl(), 'generos?display=all') ? 'disabled' : ''}}" href="{{URL::action('GeneroController@index',['display'=>'all'])}}">Todos</a> | 
-                <a class="btn btn-link" href="{{url('generos')}}">Activos</a> | 
-                <a class="btn btn-link {{strpos(Request::fullUrl(), 'generos?display=trash') ? 'disabled' : ''}}" href="{{URL::action('GeneroController@index',['display'=>'trash'])}}">Papelera</a>
+                <a class="btn btn-link {{strpos(Request::fullUrl(), 'generos?display=all') ? 'disabled' : ''}}" href="{{URL::action('GeneroController@index',['display'=>'all'])}}">@lang("messages.all")</a> | 
+                <a class="btn btn-link" href="{{url('generos')}}">@lang("messages.actives")</a> | 
+                <a class="btn btn-link {{strpos(Request::fullUrl(), 'generos?display=trash') ? 'disabled' : ''}}" href="{{URL::action('GeneroController@index',['display'=>'trash'])}}">@lang("messages.trash")</a>
                 <div class="table-responsive">
                     {{$generos->appends(Request::capture()->except('page'))->links()}}
                     <table class="table">
