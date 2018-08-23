@@ -13,6 +13,7 @@
 
 Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider')->name('social.auth');
 Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
+Route::get('lang/{lang}', ['as' => 'lang.switch', 'uses' => 'LanguageController@switchLang']);
 
 Route::group(["middleware" => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'], 'prefix' => LaravelLocalization::setLocale()], function () {
     Route::get('/home', 'HomeController@index')->name('home');

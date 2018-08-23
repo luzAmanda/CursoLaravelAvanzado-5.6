@@ -10,4 +10,5 @@ return [
     'actives' => 'Activos',
     'trash' => 'Papelera',
     'gender_trash' => 'Género enviado a papelera',
+    'languages' => 'Idiomas',
 ];

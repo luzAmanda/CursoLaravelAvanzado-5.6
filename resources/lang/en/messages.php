@@ -10,4 +10,5 @@ return [
     'actives' => 'Actives',
     'trash' => 'Trash',
     'gender_trash' => 'Gender sent to trash',
+    'languages' => 'Languages',
 ];
