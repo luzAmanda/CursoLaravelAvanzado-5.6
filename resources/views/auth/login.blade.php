@@ -64,10 +64,16 @@
                         </div>
                         <hr/>
                         <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
+                            <div class="col-md-6 offset-md-4">
                                 <h5>O inicia sesión con</h5>
-                                <a class="btn btn-primary" href="{{ route('social.auth',"facebook") }}">
-                                    Facebook
+                                <a href="{{ route('social.auth',"facebook") }}" class="btn btn-block btn-social btn-facebook">
+                                    <span class="fa fa-facebook"></span> Facebook
+                                </a>
+                                <a href="{{ route('social.auth',"google") }}" class="btn btn-block btn-social btn-google">
+                                    <span class="fa fa-google"></span> Google
+                                </a>
+                                <a href="{{ route('social.auth',"linkedin") }}" class="btn btn-block btn-social btn-linkedin">
+                                    <span class="fa fa-linkedin"></span> LinkedIn
                                 </a>
                             </div>
                         </div>
@@ -78,3 +84,6 @@
     </div>
 </div>
 @endsection
+@push("styles")
+    <link href="{{ asset('css/bootstrap-social.css') }}" rel="stylesheet">
+@endpush
