@@ -92,10 +92,8 @@ class GeneroController extends Controller
     {
         try {
             Genero::destroy($id);
-            //Mail::to($user)->send(new GeneroTrash());
-            // Notification::route('mail', $email)
-            // ->notify(new GeneroNotification());
-            return redirect('generos')->with('success', Lang::get("messages.gender_trash"));
+            $gen = Genero::withTrashed()->where('idGenero', $id)->first();
+            return redirect('generos')->with('success', Lang::get("messages.gender_trash", ['name' => $gen->nombre]));
         } catch (Exception $e) {
             return back()->withErrors(['exception' => $e->getMessage()]);
         }

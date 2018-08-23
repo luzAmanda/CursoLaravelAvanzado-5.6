@@ -9,6 +9,6 @@ return [
     'all' => 'All',
     'actives' => 'Actives',
     'trash' => 'Trash',
-    'gender_trash' => 'Gender sent to trash',
+    'gender_trash' => 'Gender ":name" sent to trash',
     'languages' => 'Languages',
 ];

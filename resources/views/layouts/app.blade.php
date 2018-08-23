@@ -82,9 +82,9 @@
                                     @lang("messages.languages")
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownLanguages">
-                                    @foreach (Config::get('app.available_locale') as $lang => $language)
+                                    @foreach (Config::get('app.available_locale') as $lang)
                                         @if ($lang != \LaravelLocalization::getCurrentLocale())
-                                            <a class="dropdown-item" href="{{ route('lang.switch', $lang) }}">{{$language}}</a>
+                                            <a class="dropdown-item" href="{{ route('lang.switch', $lang) }}">@lang("languages.".$lang)</a>
                                         @endif
                                     @endforeach
                                 </div>

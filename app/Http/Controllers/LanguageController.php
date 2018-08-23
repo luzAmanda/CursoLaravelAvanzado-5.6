@@ -8,7 +8,7 @@ class LanguageController extends Controller
 {
     public function switchLang($lang)
     {
-        if (array_key_exists($lang, Config::get('app.available_locale'))) {
+        if (in_array($lang, Config::get('app.available_locale'))) {
             $url = url()->previous();
             $url_explode = explode("/", $url);
             $url_explode[3] = $lang;

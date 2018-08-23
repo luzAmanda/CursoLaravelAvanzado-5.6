@@ -94,8 +94,7 @@ return [
     'fallback_locale' => 'en',
 
     'available_locale' => [
-        'en' => 'English',
-        'es' => 'Español',
+        'en', 'es',
     ],
 
     /*
