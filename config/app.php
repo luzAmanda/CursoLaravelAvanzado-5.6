@@ -155,13 +155,14 @@ return [
          * Package Service Providers...
          */
         Berkayk\OneSignal\OneSignalServiceProvider::class,
+        Zizaco\Entrust\EntrustServiceProvider::class,
 
         /*
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
@@ -218,6 +219,7 @@ return [
         'Twilio' => Aloha\Twilio\Support\Laravel\Facade::class,
         'OneSignal' => Berkayk\OneSignal\OneSignalFacade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Entrust' => Zizaco\Entrust\EntrustFacade::class,
     ],
 
 ];
