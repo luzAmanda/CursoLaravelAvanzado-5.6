@@ -15,11 +15,13 @@ class CreatePeliculasTable extends Migration
     {
         Schema::create('peliculas', function (Blueprint $table) {
             $table->increments('idPelicula');
+            $table->integer('idUser');
             $table->string('titulo', 30);
             $table->integer('duracion');
             $table->integer('anio');
             $table->string('imagen', 250)->nullable();
             $table->timestamps();
+            $table->foreign('idPelicula')->references('idPelicula')->on('peliculas');
         });
     }
 

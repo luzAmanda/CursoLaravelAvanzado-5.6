@@ -13,9 +13,14 @@ class Pelicula extends Model
     protected $table = "peliculas";
     public $timestamps = true;
 
-    public $fillable = ['titulo', 'duracion', 'anio', 'imagen'];
+    public $fillable = ['titulo', 'duracion', 'anio', 'imagen', 'idUser'];
 
     protected $hidden = ['pivot'];
+
+    public function usuario()
+    {
+        return $this->belongsTo('\App\User', 'idUser');
+    }
 
     public function generos()
     {
@@ -62,6 +67,7 @@ class Pelicula extends Model
         });
 
         static::creating(function ($pelicula) {
+            $pelicula->idUser = Auth::id();
             if (Input::hasFile('imagen') && $pelicula->imagen != null) {
                 $image = Input::file('imagen');
                 $pelicula->imagen = $image->store('public/peliculas');

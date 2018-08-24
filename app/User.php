@@ -27,8 +27,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function routeNotificationForNexmo($notification)
+    public function peliculas()
     {
-        return "0988439885";
+        return $this->hasMany('\App\Pelicula', 'idUser'); // modelo y clave foránea
     }
 }
