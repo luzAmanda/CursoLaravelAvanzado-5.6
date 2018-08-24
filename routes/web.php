@@ -22,15 +22,12 @@ Route::group(["middleware" => ['localeSessionRedirect', 'localizationRedirect', 
         return view('welcome');
     });
     Route::group(["middleware" => "auth"], function () {
-        Route::resource("peliculas", "PeliculaController")->except(['store', 'update']);
-        Route::resource("generos", "GeneroController")->except(['create', 'edit']);
+        Route::resource("peliculas", "PeliculaController")->except(['store', 'update', 'destroy']);
+        Route::resource("generos", "GeneroController")->except(['create', 'edit', 'store', 'update']);
     });
 });
 Route::group(["middleware" => "auth"], function () {
-    Route::resource("peliculas", "PeliculaController")->only(['store', 'update']);
+    Route::resource("peliculas", "PeliculaController")->only(['store', 'update', 'destroy']);
     Route::post("generos/{id}/restore", "GeneroController@restore")->name("generos.restore");
     Route::post("generos/{id}/trash", "GeneroController@trash")->name("generos.trash");
-});
-Route::get('event', function () {
-    event(new App\Events\DashboardEvent());
 });

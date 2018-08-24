@@ -21,7 +21,7 @@ class CreatePeliculasTable extends Migration
             $table->integer('anio');
             $table->string('imagen', 250)->nullable();
             $table->timestamps();
-            $table->foreign('idPelicula')->references('idPelicula')->on('peliculas');
+            $table->foreign('idUser')->references('id')->on('users');
         });
     }
 

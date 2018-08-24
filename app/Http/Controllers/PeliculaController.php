@@ -16,7 +16,8 @@ class PeliculaController extends Controller
      */
     public function index()
     {
-        $peliculas = Pelicula::withCount('generos')->orderByDesc('anio')->orderBy('titulo')->paginate(10);
+        $peliculas = Pelicula::withCount('generos')->with("usuario:id,name")
+            ->orderByDesc('anio')->orderBy('titulo')->paginate(10);
         return view('panel.peliculas.index', compact('peliculas'));
     }
 
@@ -88,6 +89,7 @@ class PeliculaController extends Controller
     public function update(PeliculaRequest $request, $id)
     {
         try {
+            $this->authorize('update', Pelicula::findOrFail($id));
             $pelicula = Pelicula::updateOrCreate(['idPelicula' => $id], $request->except('idGenero'));
             $pelicula->generos()->sync($request->idGenero);
             return redirect('peliculas')->with('success', 'Pelicula actualizada');

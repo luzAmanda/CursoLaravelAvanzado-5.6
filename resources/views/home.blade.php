@@ -9,10 +9,10 @@
 
                 <div class="card-body">
                     <div class="alert alert-success" role="alert">
-                        <b>Películas:</b> {{$peliculas}}
+                        <b>Películas:</b> <span id="peliculas_count">{{$peliculas}}</span>
                     </div>
                     <div class="alert alert-success" role="alert">
-                        <b>Géneros:</b> {{$generos}}
+                        <b>Géneros:</b> <span id="generos_count">{{$generos}}</span>
                     </div>
                 </div>
             </div>

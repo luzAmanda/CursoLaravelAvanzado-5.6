@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Auth;
 use DB;
 use Illuminate\Database\Eloquent\Model;
 use Input;
@@ -19,7 +20,10 @@ class Pelicula extends Model
 
     public function usuario()
     {
-        return $this->belongsTo('\App\User', 'idUser');
+        return $this->belongsTo('\App\User', 'idUser')
+            ->withDefault(function ($user) {
+                $user->name = 'Guest Author';
+            });
     }
 
     public function generos()
