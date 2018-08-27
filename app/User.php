@@ -5,6 +5,7 @@ namespace App;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Faker;
 
 class User extends Authenticatable
 {
@@ -31,5 +32,16 @@ class User extends Authenticatable
     public function peliculas()
     {
         return $this->hasMany('\App\Pelicula', 'idUser'); // modelo y clave foránea
+    }
+
+    protected static function boot(){
+        parent::boot();
+
+        static::creating(function ($usuario) {
+            $faker = Faker\Factory::create();
+            $password=$faker->password();
+            info($password);
+            $usuario->password=bcrypt($password);
+        });
     }
 }

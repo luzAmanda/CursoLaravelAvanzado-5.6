@@ -21,13 +21,16 @@ Route::group(["middleware" => ['localeSessionRedirect', 'localizationRedirect', 
     Route::get('/', function () {
         return view('welcome');
     });
-    Route::group(["middleware" => "auth"], function () {
+    Route::group(["middleware" =>"auth"], function () {
         Route::resource("peliculas", "PeliculaController")->except(['store', 'update', 'destroy']);
+        Route::resource("usuarios", "UserController")->except(['store', 'update', 'destroy',"create","edit"])
+        ->middleware('role:admi');
         Route::resource("generos", "GeneroController")->except(['create', 'edit', 'store', 'update']);
     });
 });
 Route::group(["middleware" => "auth"], function () {
     Route::resource("peliculas", "PeliculaController")->only(['store', 'update', 'destroy']);
+    Route::resource("usuarios", "UserController")->only(['store', 'update', 'destroy'])->middleware('role:admi');;
     Route::post("generos/{id}/restore", "GeneroController@restore")->name("generos.restore");
     Route::post("generos/{id}/trash", "GeneroController@trash")->name("generos.trash");
 });
