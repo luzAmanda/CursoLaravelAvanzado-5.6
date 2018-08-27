@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\User;
+use App\Http\Requests\PasswordRequest;
 use App\Http\Requests\UserRequest;
-use Illuminate\Database\QueryException;
 use App\Role;
+use App\User;
+use Auth;
+use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -17,9 +19,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $usuarios=User::with("roles")->orderBy('name')->paginate(10);
-        $roles=Role::orderBy('name')->get();
-        return view('panel.usuarios.index',compact('usuarios','roles'));
+        $usuarios = User::with("roles")->orderBy('name')->paginate(10);
+        $roles = Role::orderBy('name')->get();
+        return view('panel.usuarios.index', compact('usuarios', 'roles'));
     }
 
     /**
@@ -30,7 +32,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        try{
+        try {
             $user = User::create($request->except('idRol'));
             $user->roles()->attach($request->idRol);
             return redirect('usuarios')->with('success', 'Usuario creado');
@@ -47,7 +49,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $usuario = User::with("roles")->where('id', $id)->orderBy('name')->firstOrFail();
+        return view('panel.usuarios.show', compact('usuario'));
     }
 
     /**
@@ -57,9 +60,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
-        //
+        try {
+            $user = User::findOrFail($id);
+            $user->roles()->sync($request->idRol);
+            return redirect('usuarios')->with('success', 'Usuario actualizado');
+        } catch (Exception | QueryException $e) {
+            return back()->withErrors(['exception' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -71,5 +80,23 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function settings()
+    {
+        $usuario = Auth::user();
+        return view('panel.usuarios.settings', compact('usuario'));
+    }
+
+    public function change_password(PasswordRequest $request)
+    {
+        try {
+            $user = Auth::user();
+            $user->password = bcrypt($request->password);
+            $user->save();
+            return redirect('settings')->with('success', 'Contraseña actualizada');
+        } catch (Exception | QueryException $e) {
+            return back()->withErrors(['exception' => $e->getMessage()]);
+        }
     }
 }

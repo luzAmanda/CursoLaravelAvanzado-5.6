@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Auth;
 
-class UserRequest extends FormRequest
+class PasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +13,7 @@ class UserRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user()->hasRole("admi");
+        return true;
     }
 
     /**
@@ -25,9 +24,8 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required_without:idUser|string|min:3|max:50|unique:users',
-            'email' => 'required_without:idUser|string|email|min:10|max:50|unique:users',
-            'idRol'=>'required|integer|exists:roles,id',
+            'password_now' => 'required|string|min:8|max:25|current_password',
+            'password' => 'required|string|min:8|max:25|different:password_now|confirmed|strong_password',
         ];
     }
 }

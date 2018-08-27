@@ -55,6 +55,13 @@
                             </tr>
                         @endforeach
                     </tbody>
+                    <tfoot>
+                        @if (count($generos)==0)
+                            <tr>
+                                <td style="text-align:center" colspan="3">No existen géneros registrados</td>
+                            </tr>
+                        @endif
+                    </tfoot>
                     </table>
                     {{$generos->appends(Request::capture()->except('page'))->links()}}
                 </div>

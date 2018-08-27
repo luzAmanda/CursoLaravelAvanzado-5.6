@@ -52,20 +52,20 @@
                     <ul class="nav nav-tabs mr-auto">
                         @auth 
                         <li class="nav-item">
-                            <a class="nav-link {{strpos(Request::path(), 'home') !== false ? 'active' : ''}}"
+                            <a class="nav-link {{Route::currentRouteName() != 'home' ?: 'active'}}"
                              href="{{ url('home') }}">@lang("messages.home")</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{strpos(Request::path(), 'peliculas') !== false ? 'active' : ''}}"
+                            <a class="nav-link {{Route::currentRouteName() != 'peliculas.index' ?: 'active'}}"
                              href="{{ url('peliculas') }}">@lang("messages.movies")</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{strpos(Request::path(), 'generos') !== false ?'active':''}}"
+                            <a class="nav-link {{Route::currentRouteName() != 'generos.index' ?: 'active'}}"
                              href="{{ url('generos') }}">@lang("messages.genders")</a>
                         </li>
                         @role('admi')
                             <li class="nav-item">
-                                <a class="nav-link {{strpos(Request::path(), 'usuarios') !== false ?'active':''}}"
+                                <a class="nav-link {{Route::currentRouteName() != 'usuarios.index' ?: 'active'}}"
                                 href="{{ url('usuarios') }}">@lang("messages.users")</a>
                             </li>
                         @endrole
@@ -101,6 +101,9 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('settings') }}">
+                                         @lang("messages.settings")
+                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
