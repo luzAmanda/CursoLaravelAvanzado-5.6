@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\StrongPassword;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PasswordRequest extends FormRequest
@@ -25,7 +26,7 @@ class PasswordRequest extends FormRequest
     {
         return [
             'password_now' => 'required|string|min:8|max:25|current_password',
-            'password' => 'required|string|min:8|max:25|different:password_now|confirmed|strong_password',
+            'password' => ['required', 'string', 'min:8', 'max:25', 'different:password_now', 'confirmed', new StrongPassword],
         ];
     }
 }

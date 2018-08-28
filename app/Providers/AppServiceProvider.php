@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
             return Hash::check($value, Auth::user()->password);
         });
         Validator::extend('strong_password', function ($attribute, $value, $parametes) {
-            return preg_match('/^(?=.*[A-Z])(?=.*[a-z])(?=.*[!$%&?@#\._-])(?=.*[0-9])[A-Za-z0-9!$%&?@#\._-]{8,25}$/', $value);
+            return preg_match('/^(?=.*[A-Z])(?=.*[a-z])(?=.*[!$%&?@#\._-])(?=.*[0-9])[\w!$%&?@#\.-]{8,25}$/', $value);
         });
     }
 }

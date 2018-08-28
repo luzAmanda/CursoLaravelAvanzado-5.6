@@ -3,8 +3,8 @@
 namespace App\Exceptions;
 
 use BadMethodCallException;
-use Exception;
 use ErrorException;
+use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -49,7 +49,7 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $ex)
     {
         if ($ex instanceof BadMethodCallException | $ex instanceof ErrorException) {
-            return response()->view('errors.500', ['description'=>$ex->getMessage()], 500);
+            return response()->view('errors.500', ['description' => $ex->getMessage()], 500);
         }
         return parent::render($request, $ex);
     }

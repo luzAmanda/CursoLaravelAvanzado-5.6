@@ -21,16 +21,17 @@ Route::group(["middleware" => ['localeSessionRedirect', 'localizationRedirect', 
     Route::get('/', function () {
         return view('welcome');
     });
-    Route::group(["middleware" =>"auth"], function () {
+    Route::group(["middleware" => "auth"], function () {
+        Route::get('reporte', 'ReporteController@testPDF');
         Route::resource("peliculas", "PeliculaController")->except(['store', 'update', 'destroy']);
-        Route::resource("usuarios", "UserController")->except(['store', 'update', 'destroy',"create","edit"])
-        ->middleware('role:admi');
+        Route::resource("usuarios", "UserController")->except(['store', 'update', 'destroy', "create", "edit"])
+            ->middleware('role:admi');
         Route::resource("generos", "GeneroController")->except(['create', 'edit', 'store', 'update']);
         Route::get('settings', 'UserController@settings')->name('settings');
+        Route::post('change_password', 'UserController@change_password')->name('settings.store');
     });
 });
 Route::group(["middleware" => "auth"], function () {
-    Route::post('change_password', 'UserController@change_password')->name('settings.store');
     Route::resource("peliculas", "PeliculaController")->only(['store', 'update', 'destroy']);
     Route::resource("usuarios", "UserController")->only(['store', 'update', 'destroy'])->middleware('role:admi');;
     Route::post("generos/{id}/restore", "GeneroController@restore")->name("generos.restore");
