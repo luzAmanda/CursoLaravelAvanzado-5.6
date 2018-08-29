@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
+                    <form id='form-login' method="POST" action="{{ route('login') }}" aria-label="{{ __('Login') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -53,7 +53,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button id='btn-login' type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
 
@@ -86,4 +86,18 @@
 @endsection
 @push("styles")
     <link href="{{ asset('css/bootstrap-social.css') }}" rel="stylesheet">
+@endpush
+@push("scripts")
+    <script type='text/javascript'>
+    $(document).ready(function () {
+        $( "#form-login" ).submit(function( event ) {
+             var loadingText = '<i class="fa fa-circle-o-notch fa-spin"></i> Cargando...';
+             var btn=$('#btn-login');
+             if (btn.html() !== loadingText) {
+                btn.data('original-text', btn.html());
+                btn.html(loadingText);
+            }
+        });
+    });
+    </script>
 @endpush
