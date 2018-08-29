@@ -2,16 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
+use App\Exports\PeliculaExport;
+use App\Exports\UsersExport;
+use App\User;
+use Excel;
 use PDF;
 
 class ReporteController extends Controller
 {
-    public function testPDF()
+    public function reporteUsuarios()
     {
-        $user = Auth::user();
-        $reporte = PDF::loadView('reportes.test', compact('user'));
-        $reporte = $reporte->stream('Reporte Test.pdf');
+        $usuarios = User::with('roles')->orderBy('name')->get();
+        $reporte = PDF::loadView('reportes.usuarios', compact('usuarios'));
+        $reporte = $reporte->stream('Reporte Usuarios.pdf');
         return $reporte;
+    }
+
+    public function index()
+    {
+        return view('reportes.index');
+    }
+
+    public function reporteUsuariosExcel()
+    {
+        return Excel::download(new UsersExport, 'usuarios.xlsx');
+    }
+
+    public function reportePeliculasExcel()
+    {
+        return Excel::download(new PeliculaExport, 'peliculas.xlsx');
     }
 }

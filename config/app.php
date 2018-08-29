@@ -216,7 +216,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
-        'Twilio' => Aloha\Twilio\Support\Laravel\Facade::class,
         'OneSignal' => Berkayk\OneSignal\OneSignalFacade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Entrust' => Zizaco\Entrust\EntrustFacade::class,

@@ -22,7 +22,7 @@ Route::group(["middleware" => ['localeSessionRedirect', 'localizationRedirect', 
         return view('welcome');
     });
     Route::group(["middleware" => "auth"], function () {
-        Route::get('reporte', 'ReporteController@testPDF');
+        Route::get('reportes', 'ReporteController@index');
         Route::resource("peliculas", "PeliculaController")->except(['store', 'update', 'destroy']);
         Route::resource("usuarios", "UserController")->except(['store', 'update', 'destroy', "create", "edit"])
             ->middleware('role:admi');
@@ -33,7 +33,14 @@ Route::group(["middleware" => ['localeSessionRedirect', 'localizationRedirect', 
 });
 Route::group(["middleware" => "auth"], function () {
     Route::resource("peliculas", "PeliculaController")->only(['store', 'update', 'destroy']);
-    Route::resource("usuarios", "UserController")->only(['store', 'update', 'destroy'])->middleware('role:admi');;
+    Route::resource("usuarios", "UserController")->only(['store', 'update', 'destroy'])->middleware('role:admi');
     Route::post("generos/{id}/restore", "GeneroController@restore")->name("generos.restore");
     Route::post("generos/{id}/trash", "GeneroController@trash")->name("generos.trash");
+
+    // Reportes
+    Route::group(["prefix" => "reportes"], function () {
+        Route::get("usuarios", "ReporteController@reporteUsuarios")->name('reportes.usuarios');
+        Route::get("usuarios/excel", "ReporteController@reporteUsuariosExcel")->name('reportes.usuarios.excel');
+        Route::get("peliculas/excel", "ReporteController@reportePeliculasExcel")->name('reportes.peliculas.excel');
+    });
 });

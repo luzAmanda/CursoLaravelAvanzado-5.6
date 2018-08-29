@@ -69,6 +69,10 @@
                                 href="{{ url('usuarios') }}">@lang("messages.users")</a>
                             </li>
                         @endrole
+                        <li class="nav-item">
+                            <a class="nav-link {{Route::currentRouteName() != 'reportes.index' ?: 'active'}}"
+                             href="{{ url('reportes') }}">@lang("messages.reports")</a>
+                        </li>
                         @endauth
                     </ul>
 
