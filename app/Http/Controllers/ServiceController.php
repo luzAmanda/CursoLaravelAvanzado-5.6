@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Czim\Service\Requests\ServiceSoapRequest;
 use Czim\Service\Services\SoapService;
+use GuzzleHttp\Client;
 
 class ServiceController extends Controller
 {
@@ -30,5 +31,12 @@ class ServiceController extends Controller
         $actores = $response['data']['return'];
 
         return $actores;
+    }
+
+    public function getTodos()
+    {
+        $client = new Client();
+        $response = $client->get('https://jsonplaceholder.typicode.com/todos');
+        return json_decode($response->getBody());
     }
 }
