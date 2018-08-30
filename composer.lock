@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6ade28409a980a51b8af465704f33a58",
+    "content-hash": "5baa2a83879cd062a360196374b72ff4",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -115,6 +115,110 @@
                 "push"
             ],
             "time": "2017-09-22T09:52:00+00:00"
+        },
+        {
+            "name": "czim/laravel-dataobject",
+            "version": "1.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/czim/laravel-dataobject.git",
+                "reference": "4ce715840287d07f6f7403e50f58c759ca9b1aaa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/czim/laravel-dataobject/zipball/4ce715840287d07f6f7403e50f58c759ca9b1aaa",
+                "reference": "4ce715840287d07f6f7403e50f58c759ca9b1aaa",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "3.4.*",
+                "phpunit/phpunit": "5.*",
+                "satooshi/php-coveralls": "^1.0",
+                "scrutinizer/ocular": "~1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Czim\\DataObject\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Coen Zimmerman",
+                    "email": "coen@pixelindustries.com",
+                    "homepage": "http://www.pixelindustries.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Basic validatable standardized data object.",
+            "homepage": "https://github.com/czim/laravel-dataobject",
+            "keywords": [
+                "data object",
+                "standardization",
+                "validate",
+                "validation"
+            ],
+            "time": "2017-07-07T18:36:52+00:00"
+        },
+        {
+            "name": "czim/laravel-service",
+            "version": "0.9.33",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/czim/laravel-service.git",
+                "reference": "5020f66128faad3d2644b22757415452718300e9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/czim/laravel-service/zipball/5020f66128faad3d2644b22757415452718300e9",
+                "reference": "5020f66128faad3d2644b22757415452718300e9",
+                "shasum": ""
+            },
+            "require": {
+                "czim/laravel-dataobject": "^1.0",
+                "guzzlehttp/guzzle": "~6.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "orchestra/testbench": "3.3.*",
+                "phpunit/phpunit": "4.*",
+                "scrutinizer/ocular": "~1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Czim\\Service\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Coen Zimmerman",
+                    "email": "coen@pixelindustries.com",
+                    "homepage": "http://www.pixelindustries.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Basic webservice framework for Laravel.",
+            "homepage": "https://github.com/czim/laravel-service",
+            "keywords": [
+                "rest",
+                "service",
+                "soap",
+                "webservice"
+            ],
+            "time": "2017-03-24T10:55:39+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",

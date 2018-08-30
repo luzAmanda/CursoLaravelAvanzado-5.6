@@ -7,6 +7,7 @@ use App\User;
 use Auth;
 use GuzzleHttp\Exception\ClientException;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 use Socialite;
 
 class LoginController extends Controller
@@ -70,5 +71,29 @@ class LoginController extends Controller
         Auth::login($user);
 
         return redirect()->to('/home');
+    }
+
+    protected function credentials(Request $request)
+    {
+        $login = $request->input($this->username());
+
+        // Comprobar si el input coincide con el formato de E-mail
+        $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
+
+        return [
+            $field => $login,
+            'password' => $request->input('password'),
+        ];
+    }
+
+    public function username()
+    {
+        return 'username';
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        return redirect('login');
     }
 }

@@ -11,6 +11,7 @@
                     <a title="Ver Reporte Usuarios PDF" target="_blank" href="{{route('reportes.usuarios')}}" class="btn btn-info btn-xs"><i class="fa fa-folder-open" aria-hidden="true"></i> Usuarios PDF</a>
                     <a title="Ver Reporte Usuarios Excel" href="{{route('reportes.usuarios.excel')}}" class="btn btn-info btn-xs"><i class="fa fa-folder-open" aria-hidden="true"></i> Usuarios EXCEl</a>
                     <a title="Ver Reporte Películas Excel" href="{{route('reportes.peliculas.excel')}}" class="btn btn-info btn-xs"><i class="fa fa-folder-open" aria-hidden="true"></i> Películas EXCEl</a>
+                    <a title="Ver Reporte Géneros Excel" href="{{route('reportes.generos.excel')}}" class="btn btn-info btn-xs"><i class="fa fa-folder-open" aria-hidden="true"></i> Géneros EXCEl</a>
                 </div>
             </div>
         </div>

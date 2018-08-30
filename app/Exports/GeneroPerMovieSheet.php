@@ -2,22 +2,22 @@
 
 namespace App\Exports;
 
-use App\Pelicula;
+use App\Genero;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithTitle;
 
-class PeliculaPerYearSheet implements FromCollection, ShouldAutoSize, WithHeadings,
+class GeneroPerMovieSheet implements FromCollection, ShouldAutoSize, WithHeadings,
 WithTitle, WithMapping
 {
 
-    private $year;
+    private $genero;
 
-    public function __construct(int $year)
+    public function __construct(Genero $genero)
     {
-        $this->year = $year;
+        $this->genero = $genero;
     }
 
     public function map($pelicula): array
@@ -26,20 +26,18 @@ WithTitle, WithMapping
             $pelicula->idPelicula,
             $pelicula->titulo,
             $pelicula->duracion,
-            $pelicula->generos_count,
+            $pelicula->anio,
         ];
     }
 
     public function collection()
     {
-        return Pelicula::withCount('generos')
-            ->where('anio', $this->year)
-            ->get();
+        return $this->genero->peliculas()->orderBy('titulo')->get();
     }
 
     public function title(): string
     {
-        return '' . $this->year;
+        return $this->genero->nombre;
     }
 
     public function headings(): array
@@ -48,7 +46,7 @@ WithTitle, WithMapping
             'ID',
             'Título',
             'Duración',
-            '# Géneros',
+            'Año',
         ];
     }
 }

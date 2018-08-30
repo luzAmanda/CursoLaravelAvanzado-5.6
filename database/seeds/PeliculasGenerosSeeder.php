@@ -1,5 +1,7 @@
 <?php
 
+use App\Genero;
+use App\Pelicula;
 use Illuminate\Database\Seeder;
 
 class PeliculasGenerosSeeder extends Seeder
@@ -12,8 +14,10 @@ class PeliculasGenerosSeeder extends Seeder
     public function run()
     {
         factory(App\Pelicula::class, 20)->create()->each(function ($p) {
-            // codigo detach
-            $p->generos()->attach(factory(App\Genero::class,3)->create());
+            $gens = Genero::find([rand(1, 20), rand(1, 20)]);
+            if (count($gens) > 0) {
+                $p->generos()->attach($gens);
+            }
         });
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\PeliculaExport;
 use App\Exports\UsersExport;
+use App\Exports\GeneroExport;
 use App\User;
 use Excel;
 use PDF;
@@ -31,5 +32,10 @@ class ReporteController extends Controller
     public function reportePeliculasExcel()
     {
         return Excel::download(new PeliculaExport, 'peliculas.xlsx');
+    }
+
+    public function reporteGenerosExcel()
+    {
+        return Excel::download(new GeneroExport, 'generos.xlsx');
     }
 }
