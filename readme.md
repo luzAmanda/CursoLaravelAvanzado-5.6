@@ -1,13 +1,12 @@
-
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 ##   Advanced Laravel Course
 
 Laravel 5.6, master detail CRUD about movies with genders, includes the following topics:
 
- - Web Services´s Consumption
-	 - SOAP
-	 - REST
+- Web Services´s Consumption
+	- SOAP
+	- REST
 - Testing
 	- HTTP Tests
 	- Database Testing
@@ -43,6 +42,7 @@ Laravel 5.6, master detail CRUD about movies with genders, includes the followin
 - Reports
 	- PDF
 	- Excel
+	- Charts
 - Official Packages
 	- API Authentication (Passport)
 	- Laravel Socialite
@@ -53,7 +53,7 @@ Laravel 5.6, master detail CRUD about movies with genders, includes the followin
 ```
 git clone https://gitlab.com/cristofima/curso-laravel-avanzado.git
 ```
--   Copy .env.example file to .env and edit .env to configure your database
+-   Copy .env.example file to .env and edit .env to configure your database, mail, One Signal, Facebook, Google and LinkedIn
 ```
 cd curso-laravel-avanzado
 cp .env.example .env
@@ -61,6 +61,7 @@ cp .env.example .env
 - Install libraries and dependencies
 ```
 composer install
+npm install
 ```
 -   Generate application key, migrate and seed database
 ```
