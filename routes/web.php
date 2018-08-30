@@ -21,7 +21,8 @@ Route::group(["middleware" => ['localeSessionRedirect', 'localizationRedirect', 
         return view('welcome');
     });
     Route::group(["middleware" => "auth"], function () {
-        Route::get('reportes', 'ReporteController@index');
+        Route::get('reportes', 'ReporteController@index')->name('reportes.index');
+        Route::get('passport', 'PassportController@index')->middleware('role:admi')->name('passport.index');
         Route::resource("peliculas", "PeliculaController")->except(['store', 'update', 'destroy']);
         Route::resource("usuarios", "UserController")->except(['store', 'update', 'destroy', "create", "edit"])
             ->middleware('role:admi');

@@ -2,14 +2,15 @@
 
 namespace App;
 
-use Zizaco\Entrust\Traits\EntrustUserTrait;
+use Faker;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Faker;
+use Laravel\Passport\HasApiTokens;
+use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class User extends Authenticatable
 {
-    use Notifiable, EntrustUserTrait;
+    use Notifiable, EntrustUserTrait, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -34,14 +35,15 @@ class User extends Authenticatable
         return $this->hasMany('\App\Pelicula', 'idUser'); // modelo y clave foránea
     }
 
-    protected static function boot(){
+    protected static function boot()
+    {
         parent::boot();
 
         static::creating(function ($usuario) {
             $faker = Faker\Factory::create();
-            $password=$faker->password();
+            $password = $faker->password();
             info($password);
-            $usuario->password=bcrypt($password);
+            $usuario->password = bcrypt($password);
         });
     }
 }
