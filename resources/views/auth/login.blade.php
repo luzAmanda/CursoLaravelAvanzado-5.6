@@ -90,12 +90,12 @@
 @push("scripts")
     <script type='text/javascript'>
     $(document).ready(function () {
-        $( "#form-login" ).submit(function( event ) {
+        $("form").submit(function( event ) {
              var loadingText = '<i class="fa fa-circle-o-notch fa-spin"></i> Cargando...';
              var btn=$('#btn-login');
              if (btn.html() !== loadingText) {
-                btn.data('original-text', btn.html());
                 btn.html(loadingText);
+                btn.prop('disabled', true);
             }
         });
     });
