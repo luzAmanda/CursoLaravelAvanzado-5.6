@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Faker;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
@@ -33,17 +32,5 @@ class User extends Authenticatable
     public function peliculas()
     {
         return $this->hasMany('\App\Pelicula', 'idUser'); // modelo y clave foránea
-    }
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($usuario) {
-            $faker = Faker\Factory::create();
-            $password = $faker->password();
-            info($password);
-            $usuario->password = bcrypt($password);
-        });
     }
 }
