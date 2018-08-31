@@ -3,20 +3,19 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">Dashboard</div>
 
                 <div class="card-body">
-                    <div class="alert alert-success" role="alert">
-                        <b>Películas:</b> <span id="peliculas_count">{{$peliculas}}</span>
-                    </div>
-                    <div class="alert alert-success" role="alert">
-                        <b>Géneros:</b> <span id="generos_count">{{$generos}}</span>
-                    </div>
+                    {!! $chart->container() !!}
                 </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
+@push('scripts')
+<script src=//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js charset=utf-8></script>
+{!! $chart->script() !!}
+@endpush
