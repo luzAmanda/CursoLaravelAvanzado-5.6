@@ -14,4 +14,5 @@ return [
     'languages' => 'Idiomas',
     'settings' => 'Configuración',
     'reports' => 'Reportes',
+    'actors' => 'Actores',
 ];

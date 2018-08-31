@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Genero;
-use App\Pelicula;
 use App\Charts\PeliculaChart;
 
 class HomeController extends Controller
@@ -25,8 +23,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // $generos = Genero::count();
-        // $peliculas = Pelicula::count();
         $chart = new PeliculaChart;
         return view('home', compact("chart"));
     }

@@ -31,6 +31,11 @@ class Pelicula extends Model
         return $this->belongsToMany('\App\Genero', 'peliculas_generos', 'idPelicula', 'idGenero');
     }
 
+    public function actores()
+    {
+        return $this->belongsToMany('\App\Actor', 'peliculas_actores', 'idPelicula', 'idActor');
+    }
+
     public function scopeCortas($query)
     {
         return $query->where('duracion', '<', '120');

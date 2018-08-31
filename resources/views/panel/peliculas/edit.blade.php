@@ -21,7 +21,7 @@
                                 <div class="col-sm-4">
                                     <input required type="number" min="50" max="500" class="form-control" id="duracion" name="duracion" value="{{$pelicula->duracion}}">
                                 </div>
-                                <label for="anio" class="col-sm-2 col-form-label">Años</label>
+                                <label for="anio" class="col-sm-2 col-form-label">Año</label>
                                 <div class="col-sm-4">
                                     <input required type="number" min="1950" max="{{date('Y')}}" class="form-control" id="anio" name="anio" value="{{$pelicula->anio}}">
                                 </div>

@@ -22,7 +22,7 @@ class PeliculaChart extends Chart
     private function buildChart()
     {
         $peliculas = Pelicula::select('anio', DB::raw('count(*) as total'))->orderBy('anio')->groupBy('anio')->get();
-        $this->dataset('Películas', 'line', $peliculas->pluck('total'))->color('#2E2EFE');
+        $this->dataset('Películas', 'bar', $peliculas->pluck('total'))->color('#2E2EFE');
         $this->labels($peliculas->pluck('anio'));
     }
 }
